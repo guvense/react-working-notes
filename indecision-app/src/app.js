@@ -1,38 +1,29 @@
+class Header extends React.Component {
 
-
-let buttonName='Show'
-let pVis= false;
-
-const onButtonClick = () => {
-
-    if(buttonName == 'Hide'){
-        buttonName = 'Show';
-        pVis=false;
-    
-    }
-    else{
-        buttonName = 'Hide';
-        pVis=true;
-
-    }
+    render(){
         
-    render()
+        return <p>This is from Header {this.props.name}</p>;
+    }
 }
 
+class Action extends React.Component {
+    render(){
+        return <button onClick={this.sayHello(this.props.name)}>What can I do?</button>
+    }
 
-const render = () => {
-
-    const temp = (
-
-        <div>
-        <button onClick= {onButtonClick}>{buttonName}</button>
-        {pVis && (<p>Nisan</p>)}
-        </div>
-    )
-    
-    
-    const tempText = document.getElementById('apptext')
-    ReactDOM.render(temp,tempText)
+      sayHello(name) {
+        console.log (name);
+       
+    }
 }
 
-render()
+const jsx =  (
+    <div>
+      <h1>Title</h1>
+      <Header name ="Guven"/>
+      <Action name = "GUven"/>
+    </div>
+
+)
+
+ReactDOM.render(jsx, document.getElementById('apptext'))
