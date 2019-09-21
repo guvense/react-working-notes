@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -8,69 +8,98 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Header = function (_React$Component) {
-    _inherits(Header, _React$Component);
+var Counter = function (_React$Component) {
+    _inherits(Counter, _React$Component);
 
-    function Header() {
-        _classCallCheck(this, Header);
+    function Counter(props) {
+        _classCallCheck(this, Counter);
 
-        return _possibleConstructorReturn(this, (Header.__proto__ || Object.getPrototypeOf(Header)).apply(this, arguments));
+        var _this = _possibleConstructorReturn(this, (Counter.__proto__ || Object.getPrototypeOf(Counter)).call(this, props));
+
+        _this.handleAddOne = _this.handleAddOne.bind(_this);
+        _this.handleMinusOne = _this.handleMinusOne.bind(_this);
+        _this.handleReset = _this.handleReset.bind(_this);
+        _this.state = {
+
+            count: 0
+        };
+        return _this;
     }
 
-    _createClass(Header, [{
-        key: "render",
-        value: function render() {
+    // State increased but there is no dynamically change 
 
-            return React.createElement(
-                "p",
-                null,
-                "This is from Header ",
-                this.props.name
-            );
-        }
-    }]);
+    // handleAddOne(){
+    //     this.state.count=this.state.count + 1;
+    //     console.log(this.state);
 
-    return Header;
-}(React.Component);
+    // }
 
-var Action = function (_React$Component2) {
-    _inherits(Action, _React$Component2);
+    _createClass(Counter, [{
+        key: 'handleAddOne',
+        value: function handleAddOne() {
 
-    function Action() {
-        _classCallCheck(this, Action);
+            this.setState(function (prevState) {
 
-        return _possibleConstructorReturn(this, (Action.__proto__ || Object.getPrototypeOf(Action)).apply(this, arguments));
-    }
-
-    _createClass(Action, [{
-        key: "render",
-        value: function render() {
-            return React.createElement(
-                "button",
-                { onClick: this.sayHello(this.props.name) },
-                "What can I do?"
-            );
+                return {
+                    count: prevState.count + 1
+                };
+            });
         }
     }, {
-        key: "sayHello",
-        value: function sayHello(name) {
-            console.log(name);
+        key: 'handleMinusOne',
+        value: function handleMinusOne() {
+
+            this.setState(function (prevState) {
+
+                return {
+                    count: prevState.count - 1
+                };
+            });
+        }
+    }, {
+        key: 'handleReset',
+        value: function handleReset() {
+
+            this.setState(function () {
+
+                return {
+                    count: 0
+                };
+            });
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            return React.createElement(
+                'div',
+                null,
+                React.createElement(
+                    'h1',
+                    null,
+                    'Count: ',
+                    this.state.count,
+                    ' '
+                ),
+                React.createElement(
+                    'button',
+                    { onClick: this.handleAddOne },
+                    '+1'
+                ),
+                React.createElement(
+                    'button',
+                    { onClick: this.handleMinusOne },
+                    '-1'
+                ),
+                React.createElement(
+                    'button',
+                    { onClick: this.handleReset },
+                    'reset'
+                )
+            );
         }
     }]);
 
-    return Action;
+    return Counter;
 }(React.Component);
 
-var jsx = React.createElement(
-    "div",
-    null,
-    React.createElement(
-        "h1",
-        null,
-        "Title"
-    ),
-    React.createElement(Header, { name: "Guven" }),
-    React.createElement(Action, { name: "GUven" })
-);
-
-ReactDOM.render(jsx, document.getElementById('apptext'));
+ReactDOM.render(React.createElement(Counter, null), document.getElementById('apptext'));
